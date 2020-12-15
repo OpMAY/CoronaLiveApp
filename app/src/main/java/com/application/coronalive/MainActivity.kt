@@ -1,4 +1,4 @@
-package com.example.coronalive
+package com.application.coronalive
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

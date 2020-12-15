@@ -1,4 +1,4 @@
-package com.example.coronalive
+package com.application.coronalive
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
