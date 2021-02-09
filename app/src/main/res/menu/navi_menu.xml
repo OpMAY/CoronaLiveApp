@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/settings"
+            android:icon="@drawable/settings"
+            android:title="설정" />
+        <item android:id="@+id/region"
+            android:icon="@drawable/region"
+            android:title="전체 지역별" />
+        <item android:id="@+id/faq"
+            android:icon="@drawable/faq"
+            android:title="FAQ 및 제보하기" />
+        <item android:id="@+id/share"
+            android:icon="@drawable/share"
+            android:title="SNS 공유" />
+        <item android:id="@+id/message"
+            android:icon="@drawable/message"
+            android:title="재난문자" />
+        <item android:id="@+id/guidelines"
+            android:icon="@drawable/guidelines"
+            android:title="거리두기 지침" />
+
+
+    </group>
+</menu>

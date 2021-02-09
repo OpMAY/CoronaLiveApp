@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".main.MainActivity">
 
+<<<<<<< HEAD
     <data>
         <variable
             name="city"
@@ -12,6 +13,13 @@
             name="viewModel"
             type="com.application.coronalive.main.MainViewModel" />
     </data>
+=======
+    <include
+        layout="@layout/navigationdrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent" />
+>>>>>>> origin/design
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
