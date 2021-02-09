@@ -1,10 +1,21 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="ItemFont" parent="android:Widget.TextView">
+        <item name="android:fontFamily"> @font/notosans_semicondensed </item>
+    </style>
+    <style name="NavigationViewStyle">
+        <item name="android:textSize"> 25sp </item>
+        <item name="android:listPreferredItemHeightSmall"> 70dp </item>
+    </style>
+    <style name="tab_text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize"> 18sp </item>
+        <item name="android:fontFamily"> @font/notosans_semicondensed </item>
     </style>
 
 </resources>
