@@ -1,6 +1,7 @@
 package com.application.coronalive.main
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.application.coronalive.api.CLApi
 import com.application.coronalive.api.request.CityInformationRequest
@@ -22,26 +23,39 @@ class MainViewModel : ViewModel() {
          * 2. 해당 정보를 통해 API 호출
          * 3. 받아온 데이터 정렬해서 넘겨주기
          */
+        Log.d("STATUS","Getting Favorites from Prefs..")
         val favorites = pref.getAllFavoritePlaces(context)
         favorites?.let {
             for (entries in it) {
+                val bigOrSmall = entries.value as String
+                var bigName = ""
+                var smallName : String? = null
+                if(bigOrSmall.contains("small City")){
+                    smallName = bigOrSmall
+                }else{
+                    bigName = bigOrSmall
+                }
                 //Preferences 에서 GetAll 을 했기 때문에 TypeCasting 이 바로 안됨, 설정해 둔 값이 있기에 타입 캐스팅 설정을 넣어둠
-                val favoriteList: MutableMap<String, String?> =
-                    entries.value as MutableMap<String, String?> // 1
-                val bigName = favoriteList.keys.first()
-                val smallName: String? = favoriteList[bigName]
-
-                val response = api.search(CityInformationRequest(bigName, smallName))// 2
+                val request = makeRequest("서울특별시", "광진구")
+                Log.d("STATUS","Connecting to Server..")
+                val response = api.search(request)// 2
                 if (response.success) {
                     val dataSet = response.data!!
                     cityArray.add(dataSet)// 3
                 }
 
             }
-        }
+        } ?: Log.d("STATUS", "No City Saved in Pref")
+        Log.d("cityInfo", cityArray.toString())
     }
 
     fun onButtonClickHandler(){
         
     }
+
+    private fun makeRequest(bigCityName : String, smallCityName : String?) : CityInformationRequest =
+        CityInformationRequest(
+            bigCityName,
+            smallCityName
+        )
 }

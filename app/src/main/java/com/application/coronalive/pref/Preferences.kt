@@ -14,7 +14,7 @@ object Preferences {
         if (value.containsValue(null))
             editor.putString(key, value.keys.first())
         else
-            editor.putString(key, value[value.keys.first()])
+            editor.putString(key + "small City", value[value.keys.first()])
         editor.apply()
     }
 

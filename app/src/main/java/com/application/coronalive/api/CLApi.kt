@@ -5,13 +5,14 @@ import com.application.coronalive.api.response.ApiResponse
 import com.application.coronalive.api.response.CityInformationResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface CLApi {
     companion object{
         val instance = ApiGenerator()
             .generate(CLApi::class.java)
     }
-    @GET("/api/v1/cities")
+    @POST("/api/v1/cities")
     suspend fun search(
         @Body request : CityInformationRequest
     ): ApiResponse<CityInformationResponse>

@@ -1,6 +1,7 @@
 package com.application.coronalive.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.application.coronalive.databinding.ActivityMainBinding
 import com.application.coronalive.fragments.DomesticFragment
 import com.application.coronalive.fragments.WorldFragment
 import com.application.coronalive.fragments.adapters.ViewPagerAdapter
+import com.application.coronalive.pref.Preferences
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.home.*
 import kotlinx.android.synthetic.main.navigationdrawer.*
@@ -62,9 +64,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.share -> Toast.makeText(this, "SNS 공유", Toast.LENGTH_SHORT).show()
             R.id.message -> Toast.makeText(this, "재난문자", Toast.LENGTH_SHORT).show()
             R.id.guidelines -> Toast.makeText(this, "거리두기 지침", Toast.LENGTH_SHORT).show()
+            R.id.add_favorite -> addPref()
         }
         layout_drawer.closeDrawers()
         return false
+    }
+
+    private fun addPref() {
+        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
+        val a = Preferences
+        a.setFavoritePlace(this, "first", mapOf("서울특별시" to "광진구"))
     }
 
     override fun onBackPressed() {
