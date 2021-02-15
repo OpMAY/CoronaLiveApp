@@ -7,10 +7,6 @@
     <color name="white">#FFFFFF</color>
     <color name="gray">#686868</color>
     <color name="lightgray">#F4F4F4</color>
-    <color name="darkgreen">#1B5E20</color>
-    <color name="green">#689F38</color>
-    <color name="semilightgreen">#8BC34A</color>
-    <color name="lightgreen">#AED581</color>
     <color name="darkred">#B71C1C</color>
     <color name="red">#D32F2F</color>
     <color name="lightred">#EF5350</color>

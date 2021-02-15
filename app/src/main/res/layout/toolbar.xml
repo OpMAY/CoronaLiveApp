@@ -33,9 +33,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/kano"
-                android:text="CORONA LIVE"
-                android:textColor="@color/black"
+                android:text="CORONA "
                 android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kano"
+                android:text="LIVE"
+                android:textStyle="bold"
+                android:textColor="@color/red"
                 android:textSize="30sp" />
         </LinearLayout>
 

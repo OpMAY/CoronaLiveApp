@@ -25,6 +25,79 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/alertbackground"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textClock"
+            android:background="@drawable/alert"
+            android:translationZ="5dp">
+
+            <LinearLayout
+                android:id="@+id/redbar"
+                android:layout_width="3dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="2dp"
+                app:layout_constraintStart_toStartOf="@id/alertbackground"
+                app:layout_constraintBottom_toBottomOf="@id/alertbackground"
+                app:layout_constraintTop_toTopOf="@id/alertbackground"
+                android:background="@color/red"
+                android:orientation="horizontal" />
+
+            <ImageView
+                android:id="@+id/alerticon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/alerticon"
+                app:layout_constraintStart_toStartOf="@+id/redbar"
+                app:layout_constraintBottom_toBottomOf="@id/alertbackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/alertbackground"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/alerttime"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                app:layout_constraintStart_toStartOf="@+id/alerticon"
+                app:layout_constraintBottom_toBottomOf="@id/alertbackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/alertbackground"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintVertical_bias="0.5"
+                android:text="5분 전"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/notosans_semicondensed"/>
+
+            <TextView
+                android:id="@+id/alertinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="55dp"
+                app:layout_constraintStart_toStartOf="@+id/alerttime"
+                app:layout_constraintBottom_toBottomOf="@id/alertbackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/alertbackground"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintVertical_bias="0.5"
+                android:text="서울 금천구 2명 추가 확진"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/notosans_semicondensed" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
