@@ -15,7 +15,7 @@ interface CLApi {
     @POST("/api/v1/cities")
     suspend fun search(
         @Body request : CityInformationRequest
-    ): ApiResponse<CityInformationResponse>
+    ): ApiResponse<List<CityInformationResponse>>
 
     @GET("/api/v1/all_cities")
     suspend fun showList() : ApiResponse<CityInformationResponse>

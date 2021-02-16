@@ -1,11 +1,11 @@
 package com.application.coronalive.api.response
 
-class CityInformationResponse(
+data class CityInformationResponse(
     val smallCityName: String?,
     val bigCityName: String,
-    val TotalInfected: Int,
-    val TotalInfectedInc: Int,
-    val LiveInfected: Int,
-    val LiveInfectedInc: Int
+    val totalInfected: Int,
+    val totalInfectedInc: Int,
+    val liveInfected: Int,
+    val liveInfectedInc: Int
 ) {
 }

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.application.coronalive.R
 import com.application.coronalive.databinding.ActivityMainBinding
@@ -22,11 +23,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main) -> Binding 작업으로 필요없는 구문
-        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding: ActivityMainBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -38,24 +40,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         subscribeUI(binding)
     }
 
-    private fun subscribeUI(binding: ActivityMainBinding){
+    private fun subscribeUI(binding: ActivityMainBinding) {
         //ViewModel은 instance로 직접 초기화가 불가능함
         //아래 ViewModelFactory, ViewModelProvider로 ViewModel을 초기화 함
         //https://readystory.tistory.com/176 참조
         val factory = MainViewModelFactory()
-        val viewModel : MainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        val viewModel: MainViewModel =
+            ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         // Update City Info
-        GlobalScope.launch(Dispatchers.Main){
-            viewModel.updateCityList(this@MainActivity)
-        }
+        viewModel.updateCityList(this@MainActivity)
+
+        viewModel.showErrorToast.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(this, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
         // Update UI
-        for(elements in viewModel.cityArray){
+        for (elements in viewModel.cityArray) {
             binding.city = elements
         }
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings -> Toast.makeText(this, "설정", Toast.LENGTH_SHORT).show()
@@ -73,7 +81,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun addPref() {
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
         val a = Preferences
-        a.setFavoritePlace(this, "first", mapOf("서울특별시" to "광진구"))
+        a.setFavoritePlace(this, "second", mapOf("서울특별시" to null))
     }
 
     override fun onBackPressed() {

@@ -25,6 +25,6 @@ class ApiGenerator {
         }
 
     companion object{
-        const val URL = "https://10.0.2.2:8080"
+        const val URL = "http://10.0.2.2:8080"
     }
 }
