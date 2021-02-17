@@ -1,21 +1,28 @@
 package com.application.coronalive.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.coronalive.R
 import com.application.coronalive.databinding.ActivityMainBinding
 import com.application.coronalive.fragments.DomesticFragment
 import com.application.coronalive.fragments.WorldFragment
+import com.application.coronalive.fragments.adapters.Data
+import com.application.coronalive.fragments.adapters.FavoritesListAdapter
 import com.application.coronalive.fragments.adapters.ViewPagerAdapter
 import com.application.coronalive.pref.Preferences
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.fragment_domestic.*
 import kotlinx.android.synthetic.main.home.*
 import kotlinx.android.synthetic.main.navigationdrawer.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -24,6 +31,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    val dataList = arrayListOf(
+        Data("경기", "18378","+ 139", "110", "+ 2"),
+        Data("인천", "3580","+ 19", "14", "- 5")
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main) -> Binding 작업으로 필요없는 구문
@@ -38,6 +50,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menu.setOnClickListener { layout_drawer.openDrawer(GravityCompat.START) }
         navigationView.setNavigationItemSelectedListener(this)
         subscribeUI(binding)
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = FavoritesListAdapter(dataList, this)
+
+        return super.onCreateView(name, context, attrs)
     }
 
     private fun subscribeUI(binding: ActivityMainBinding) {
@@ -96,5 +115,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
+    }
+
+    fun RecyclerClick(curData:Data) {
+        Toast.makeText(this, curData.region, Toast.LENGTH_SHORT).show()
     }
 }
