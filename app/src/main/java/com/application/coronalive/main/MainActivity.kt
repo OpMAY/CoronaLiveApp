@@ -18,7 +18,7 @@ import com.application.coronalive.databinding.ActivityMainBinding
 import com.application.coronalive.fragments.DomesticFragment
 import com.application.coronalive.fragments.WorldFragment
 import com.application.coronalive.fragments.adapters.Data
-import com.application.coronalive.fragments.adapters.FavoritesListAdapter
+import com.application.coronalive.fragments.adapters.FavoritesAdapter
 import com.application.coronalive.fragments.adapters.ViewPagerAdapter
 import com.application.coronalive.pref.Preferences
 import com.google.android.material.navigation.NavigationView
@@ -26,15 +26,8 @@ import kotlinx.android.synthetic.main.fragment_domestic.*
 import kotlinx.android.synthetic.main.home.*
 import kotlinx.android.synthetic.main.navigationdrawer.*
 import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    val dataList = arrayListOf(
-        Data("경기", "18378","+ 139", "110", "+ 2"),
-        Data("인천", "3580","+ 19", "14", "- 5")
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +45,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         subscribeUI(binding)
     }
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = FavoritesListAdapter(dataList, this)
-
-        return super.onCreateView(name, context, attrs)
-    }
 
     private fun subscribeUI(binding: ActivityMainBinding) {
         //ViewModel은 instance로 직접 초기화가 불가능함
@@ -117,7 +104,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    fun RecyclerClick(curData:Data) {
+    fun RecyclerClick(curData: Data) {
         Toast.makeText(this, curData.region, Toast.LENGTH_SHORT).show()
     }
+
+
 }

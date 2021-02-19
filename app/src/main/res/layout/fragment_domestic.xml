@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DomesticFragment">
+    tools:context=".fragments.DomesticFragment"
+    android:id="@+id/fg_domestic">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -109,10 +110,11 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/down"
+                android:id="@+id/next"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:background="@drawable/down_arrow"
+                android:background="@drawable/next"
+                android:backgroundTint="@color/gray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -255,19 +257,69 @@
             android:textSize="20sp"
             android:fontFamily="@font/notosans_semicondensed" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/listTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.575"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_favorites">
+
+            <TextView
+                android:id="@+id/lt_region"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:fontFamily="@font/notosans_semicondensed"
+                android:text="지역"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/lt_regionTotalNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:fontFamily="@font/notosans_semicondensed"
+                android:text="총 확진자 수"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lt_region"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lt_regionRealTimeNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_semicondensed"
+                android:text="일일 확진자 수"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.492"
+                app:layout_constraintStart_toEndOf="@+id/lt_regionTotalNum"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_favorites"
+            app:layout_constraintTop_toBottomOf="@+id/listTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="40dp" />
-
-
-
+            android:layout_marginRight="40dp"
+            android:scrollbars="vertical"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
