@@ -30,12 +30,12 @@ import java.text.NumberFormat
 class MainViewModel : ViewModel() {
     var pref: Preferences = Preferences
     var api: CLApi = CLApi.instance
-    var cityArray = arrayListOf<CityInformationResponse>()
+    var cityArray: ArrayList<CityInformationResponse>? = arrayListOf()
     private val _showErrorToast = MutableLiveData<Event<Boolean>>()
     val showErrorToast: LiveData<Event<Boolean>> = _showErrorToast
 
     private val _showUpdatedToast = MutableLiveData<Event<Boolean>>()
-    val showUpdatedToast : LiveData<Event<Boolean>> = _showUpdatedToast
+    val showUpdatedToast: LiveData<Event<Boolean>> = _showUpdatedToast
 
     val fCityName = MutableLiveData("-")
     val fTotalInfected = MutableLiveData("")
@@ -54,7 +54,7 @@ class MainViewModel : ViewModel() {
                 val name = entries.value as String
                 val cityArray = name.split(" ")
                 val bigName = cityArray[0]
-                val smallName = if(cityArray.size > 1) cityArray[1] else null
+                val smallName = if (cityArray.size > 1) cityArray[1] else null
                 //Preferences 에서 GetAll 을 했기 때문에 TypeCasting 이 바로 안됨, 설정해 둔 값이 있기에 타입 캐스팅 설정을 넣어둠
                 val request = makeRequest(bigName, smallName)
                 GlobalScope.launch(Dispatchers.Default) {
@@ -75,28 +75,27 @@ class MainViewModel : ViewModel() {
         )
     }// 2
 
-    private suspend fun dataMethod(request : CityInformationRequest){
-            try {
-                Log.d("STATUS", "Connecting to Server..")
-                val response = getInformation(request)
-                if (response.success) {
-                    Log.d("SUCCESS", "데이터 가져오기 성공")
-                    response.data?.let { data ->
-                        val dList = data.iterator()
-                        while (dList.hasNext()) {
-                            val cityInfo = dList.next()
-                            //updateViewData(cityInfo)
-                            printData(cityInfo)
-                        }
+    private suspend fun dataMethod(request: CityInformationRequest) {
+        try {
+            Log.d("STATUS", "Connecting to Server..")
+            val response = getInformation(request)
+            if (response.success) {
+                Log.d("SUCCESS", "데이터 가져오기 성공")
+                response.data?.let { data ->
+                    val dList = data.iterator()
+                    while (dList.hasNext()) {
+                        val cityInfo = dList.next()
+                        cityArray?.add(cityInfo)
                     }
-                } else {
-                    Log.d("ERROR", "알 수 없는 오류 발생")
-                    _showErrorToast.value = Event(true)
                 }
-            } catch (e: Exception) {
-                Log.d("ERROR", e.message ?: "알 수 없는 오류 발생")
+            } else {
+                Log.d("ERROR", "알 수 없는 오류 발생")
                 _showErrorToast.value = Event(true)
             }
+        } catch (e: Exception) {
+            Log.d("ERROR", e.message ?: "알 수 없는 오류 발생")
+            _showErrorToast.value = Event(true)
+        }
     }
 
     private fun makeRequest(bigCityName: String, smallCityName: String?): CityInformationRequest =
@@ -105,10 +104,8 @@ class MainViewModel : ViewModel() {
             smallCityName
         )
 
-    private fun printData(response: CityInformationResponse) {
-        Log.d("BigCityName", response.bigCityName)
-        Log.d("SmallCityName", response.smallCityName ?: "null")
-        Log.d("TotalInfected", response.totalInfected.toString())
+    fun updateData(response: CityInformationResponse): CityInformationResponse {
+        return response
     }
 
     private fun updateViewData(city: CityInformationResponse) {
@@ -125,14 +122,14 @@ class MainViewModel : ViewModel() {
         fTotalInfIncreased.value = city.totalInfectedInc
     }
 
-    fun addPref(context : Context) {
+    fun addPref(context: Context) {
         val alert = AlertDialog.Builder(context)
         Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show()
         val mainArr = arrayOf("수도, 광역시", "도", "세종시")
         alert.apply {
             setTitle("즐겨찾기 등록")
             setItems(mainArr) { _, which ->
-                if(which != 2) {
+                if (which != 2) {
                     val position: Array<String> =
                         when (which) {
                             0 -> CityRelationship.CAPITALISM_CITY
@@ -140,7 +137,7 @@ class MainViewModel : ViewModel() {
                             else -> throw IllegalStateException("잘못된 접근입니다.")
                         }
                     addPref2(position, context)
-                }else{
+                } else {
                     addPrefLast("세종시", null, context)
                 }
             }
@@ -149,7 +146,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun addPref2(position: Array<String>, context : Context) {
+    private fun addPref2(position: Array<String>, context: Context) {
         val alert = AlertDialog.Builder(context)
         alert.apply {
             setTitle("즐겨찾기 등록")
@@ -163,13 +160,13 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun addPref3(smallCityArray: Array<String>, bigCity : String, context : Context) {
+    private fun addPref3(smallCityArray: Array<String>, bigCity: String, context: Context) {
         val alert = AlertDialog.Builder(context)
         alert.apply {
             setTitle("즐겨찾기 등록")
             setItems(smallCityArray) { _, which2 ->
                 val smallCity = smallCityArray[which2]
-                if(smallCity == "전체")
+                if (smallCity == "전체")
                     addPrefLast(bigCity, null, context)
                 else
                     addPrefLast(bigCity, smallCity, context)
@@ -179,12 +176,12 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun addPrefLast(bigCity: String, smallCity : String?, context : Context) {
+    private fun addPrefLast(bigCity: String, smallCity: String?, context: Context) {
         val alert = AlertDialog.Builder(context)
         alert.apply {
             setTitle("확인")
             var key: String
-            val bool : Boolean = if(smallCity == null) {
+            val bool: Boolean = if (smallCity == null) {
                 setMessage("등록하려는 도시가 $bigCity 가 맞나요?")
                 false
             } else {
@@ -193,19 +190,20 @@ class MainViewModel : ViewModel() {
             }
             setPositiveButton("확인") { _, _ ->
                 Log.d("B Input", bigCity)
-                Log.d("S Input", smallCity?: "null")
-                key = if(bool)
+                Log.d("S Input", smallCity ?: "null")
+                key = if (bool)
                     "$bigCity $smallCity"
                 else
                     bigCity
                 val a = Preferences
-                if(a.isFavoriteExist(context, key)){
+                if (a.isFavoriteExist(context, key)) {
                     Toast.makeText(context, "이미 즐겨찾기로 등록되어있는 지역입니다.", Toast.LENGTH_SHORT).show()
-                }else{
+                } else {
                     a.setFavoritePlace(
                         context,
                         key,
-                        mapOf(bigCity to smallCity))
+                        mapOf(bigCity to smallCity)
+                    )
                     GlobalScope.launch(Dispatchers.IO) {
                         val request = makeRequest(bigCity, smallCity)
                         dataMethod(request)
@@ -219,15 +217,17 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun onNewsButtonClicked(context: Context){
+    fun onNewsButtonClicked(context: Context) {
         val intent = Intent(context, WebViewActivity::class.java)
         intent.putExtra("Clicked URL", NAVER)
         startActivity(context, intent, null)
     }
 
-    companion object{
-        const val NAVER = "https://search.naver.com/search.naver?query=%EC%BD%94%EB%A1%9C%EB%82%98&where=news&ie=utf8&sm=nws_hty"
+    companion object {
+        const val NAVER =
+            "https://search.naver.com/search.naver?query=%EC%BD%94%EB%A1%9C%EB%82%98&where=news&ie=utf8&sm=nws_hty"
         const val NATE = "https://news.nate.com/search?q=%EC%BD%94%EB%A1%9C%EB%82%98"
-        const val DAUM = "https://search.daum.net/search?w=news&nil_search=btn&DA=NTB&enc=utf8&cluster=y&cluster_page=1&q=%EC%BD%94%EB%A1%9C%EB%82%98"
+        const val DAUM =
+            "https://search.daum.net/search?w=news&nil_search=btn&DA=NTB&enc=utf8&cluster=y&cluster_page=1&q=%EC%BD%94%EB%A1%9C%EB%82%98"
     }
 }

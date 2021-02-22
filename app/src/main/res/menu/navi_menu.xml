@@ -19,6 +19,9 @@
         <item android:id="@+id/guidelines"
             android:icon="@drawable/guidelines"
             android:title="거리두기 지침" />
+        <item android:id="@+id/add_favorite"
+            android:icon="@drawable/alerticon"
+            android:title="TEST"/>
 
 
     </group>

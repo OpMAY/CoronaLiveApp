@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
         // Update UI
-        for (elements in viewModel.cityArray) {
+        for (elements in viewModel.cityArray!!) {
             binding.city = elements
         }
         binding.viewModel = viewModel
@@ -85,11 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.share -> Toast.makeText(this, "SNS 공유", Toast.LENGTH_SHORT).show()
             R.id.message -> Toast.makeText(this, "재난문자", Toast.LENGTH_SHORT).show()
             R.id.guidelines -> Toast.makeText(this, "거리두기 지침", Toast.LENGTH_SHORT).show()
-<<<<<<< HEAD
             R.id.add_favorite -> addPref() //-> 즐겨찾기 등록화면에서 처리
-=======
-            //R.id.add_favorite -> addPref()
->>>>>>> origin/design
         }
         layout_drawer.closeDrawers()
         return false
@@ -109,7 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-<<<<<<< HEAD
+
     private fun addPref(){
         val factory = MainViewModelFactory()
         val viewModel: MainViewModel =
@@ -118,11 +114,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //viewModel.addPref(this)
         viewModel.onNewsButtonClicked(this)
     }
-=======
-    fun RecyclerClick(curData: Data) {
+
+    fun recyclerClick(curData: Data) {
         Toast.makeText(this, curData.region, Toast.LENGTH_SHORT).show()
     }
 
-
->>>>>>> origin/design
 }
