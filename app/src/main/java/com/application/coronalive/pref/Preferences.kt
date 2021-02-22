@@ -11,10 +11,12 @@ object Preferences {
     fun setFavoritePlace(context: Context, key: String, value: Map<String, String?>) {
         preferences = context.getSharedPreferences("Favorite", Activity.MODE_PRIVATE)
         val editor = preferences.edit()
+        val bigCity = value.keys.first()
+        val smallCity = value[value.keys.first()]
         if (value.containsValue(null))
-            editor.putString(key, value.keys.first())
+            editor.putString(key, bigCity)
         else
-            editor.putString(key + "small City", value[value.keys.first()])
+            editor.putString(key, "$bigCity $smallCity")
         editor.apply()
     }
 
@@ -22,6 +24,11 @@ object Preferences {
     fun getFavoritePlace(context: Context, key: String): String? {
         preferences = context.getSharedPreferences("Favorite", Activity.MODE_PRIVATE)
         return preferences.getString(key, "NoID")
+    }
+
+    fun isFavoriteExist(context: Context, key : String) : Boolean {
+        preferences = context.getSharedPreferences("Favorite", Activity.MODE_PRIVATE)
+        return preferences.contains(key)
     }
 
     fun getAllFavoritePlaces(context: Context): MutableMap<String, *>? {
@@ -40,6 +47,18 @@ object Preferences {
     //즐겨찾기 데이터 모두 삭제
     fun deleteAllFavoritePlaces(context: Context){
         preferences = context.getSharedPreferences("Favorite", Activity.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.clear()
+        editor.apply()
+    }
+    //---------------------------------------------------------------------------------------//
+
+    fun setSettingProfile(context : Context){
+        preferences = context.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+    }
+
+    fun resetSettingProfile(context: Context){
+        preferences = context.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val editor = preferences.edit()
         editor.clear()
         editor.apply()
