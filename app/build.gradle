@@ -63,4 +63,5 @@ dependencies {
     implementation "org.jetbrains.anko:anko:0.10.8"
     implementation "org.jetbrains.anko:anko-design:0.10.8"
     implementation "org.jetbrains.anko:anko-design-coroutines:0.10.8"
+    implementation "org.jetbrains.anko:anko-constraint-layout:0.10.8"
 }

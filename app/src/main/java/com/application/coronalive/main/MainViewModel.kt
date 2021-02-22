@@ -1,13 +1,14 @@
 package com.application.coronalive.main
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.application.coronalive.api.CLApi
 import com.application.coronalive.api.request.CityInformationRequest
 import com.application.coronalive.api.response.ApiResponse
@@ -15,6 +16,7 @@ import com.application.coronalive.api.response.CityInformationResponse
 import com.application.coronalive.open.Event
 import com.application.coronalive.pref.CityRelationship
 import com.application.coronalive.pref.Preferences
+import com.application.coronalive.webview.WebViewActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -83,6 +85,7 @@ class MainViewModel : ViewModel() {
                         val dList = data.iterator()
                         while (dList.hasNext()) {
                             val cityInfo = dList.next()
+                            //updateViewData(cityInfo)
                             printData(cityInfo)
                         }
                     }
@@ -205,20 +208,7 @@ class MainViewModel : ViewModel() {
                         mapOf(bigCity to smallCity))
                     GlobalScope.launch(Dispatchers.IO) {
                         val request = makeRequest(bigCity, smallCity)
-                        val response = getInformation(request)
-                        if (response.success) {
-                            Log.d("SUCCESS", "데이터 가져오기 성공")
-                            response.data?.let { data ->
-                                val dList = data.iterator()
-                                while (dList.hasNext()) {
-                                    val cityInfo = dList.next()
-                                    printData(cityInfo)
-                                }
-                            }
-                        } else {
-                            Log.d("ERROR", "알 수 없는 오류 발생")
-                            _showErrorToast.value = Event(true)
-                        }
+                        dataMethod(request)
                     }
                 }
             }
@@ -227,5 +217,17 @@ class MainViewModel : ViewModel() {
             create()
             show()
         }
+    }
+
+    fun onNewsButtonClicked(context: Context){
+        val intent = Intent(context, WebViewActivity::class.java)
+        intent.putExtra("Clicked URL", NAVER)
+        startActivity(context, intent, null)
+    }
+
+    companion object{
+        const val NAVER = "https://search.naver.com/search.naver?query=%EC%BD%94%EB%A1%9C%EB%82%98&where=news&ie=utf8&sm=nws_hty"
+        const val NATE = "https://news.nate.com/search?q=%EC%BD%94%EB%A1%9C%EB%82%98"
+        const val DAUM = "https://search.daum.net/search?w=news&nil_search=btn&DA=NTB&enc=utf8&cluster=y&cluster_page=1&q=%EC%BD%94%EB%A1%9C%EB%82%98"
     }
 }

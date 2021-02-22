@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val viewModel: MainViewModel =
             ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        viewModel.addPref(this)
+        //viewModel.addPref(this)
+        viewModel.onNewsButtonClicked(this)
     }
 }
