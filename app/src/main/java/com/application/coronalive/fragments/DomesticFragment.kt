@@ -28,7 +28,9 @@ class DomesticFragment : Fragment() {
        Data("서울", R.drawable.rv_divider, 27107, "명",
             "+ 180", 22, "명", "- 16", R.drawable.next),
        Data("경북", R.drawable.rv_divider, 3164, "명",
-            "+ 22", 6, "명", "- 5", R.drawable.next)
+            "+ 22", 6, "명", "- 5", R.drawable.next),
+       Data("충북", R.drawable.rv_divider, 1719, "명",
+           "+ 7", 2, "명", "- 1", R.drawable.next)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
