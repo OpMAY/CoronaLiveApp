@@ -1,8 +1,11 @@
 package com.application.coronalive.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -10,19 +13,24 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.coronalive.R
 import com.application.coronalive.databinding.ActivityMainBinding
 import com.application.coronalive.fragments.DomesticFragment
 import com.application.coronalive.fragments.WorldFragment
+import com.application.coronalive.fragments.adapters.Data
+import com.application.coronalive.fragments.adapters.FavoritesAdapter
 import com.application.coronalive.fragments.adapters.ViewPagerAdapter
 import com.application.coronalive.pref.CityRelationship
 import com.application.coronalive.pref.Preferences
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.fragment_domestic.*
 import kotlinx.android.synthetic.main.home.*
 import kotlinx.android.synthetic.main.navigationdrawer.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main) -> Binding 작업으로 필요없는 구문
@@ -37,6 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
         subscribeUI(binding)
     }
+
 
     private fun subscribeUI(binding: ActivityMainBinding) {
         //ViewModel은 instance로 직접 초기화가 불가능함
@@ -76,7 +85,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.share -> Toast.makeText(this, "SNS 공유", Toast.LENGTH_SHORT).show()
             R.id.message -> Toast.makeText(this, "재난문자", Toast.LENGTH_SHORT).show()
             R.id.guidelines -> Toast.makeText(this, "거리두기 지침", Toast.LENGTH_SHORT).show()
+<<<<<<< HEAD
             R.id.add_favorite -> addPref() //-> 즐겨찾기 등록화면에서 처리
+=======
+            //R.id.add_favorite -> addPref()
+>>>>>>> origin/design
         }
         layout_drawer.closeDrawers()
         return false
@@ -96,6 +109,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+<<<<<<< HEAD
     private fun addPref(){
         val factory = MainViewModelFactory()
         val viewModel: MainViewModel =
@@ -104,4 +118,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //viewModel.addPref(this)
         viewModel.onNewsButtonClicked(this)
     }
+=======
+    fun RecyclerClick(curData: Data) {
+        Toast.makeText(this, curData.region, Toast.LENGTH_SHORT).show()
+    }
+
+
+>>>>>>> origin/design
 }
