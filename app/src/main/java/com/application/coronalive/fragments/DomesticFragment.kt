@@ -56,6 +56,7 @@ class DomesticFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.dataArray.observe(viewLifecycleOwner, Observer { arrayList ->
             var newData: Data
+            dataList?.clear()
             if (arrayList.iterator().hasNext()) {
                 for (element in arrayList) {
                     newData = showData(element)
@@ -63,6 +64,7 @@ class DomesticFragment : Fragment() {
                 }
             }
             recyclerView.adapter = activity?.let { FavoritesAdapter(dataList, it) }
+            recyclerView.adapter?.notifyDataSetChanged()
         })
 //      val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = LinearLayoutManager(activity)
