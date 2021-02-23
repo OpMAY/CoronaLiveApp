@@ -1,6 +1,7 @@
 package com.application.coronalive.main
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.coronalive.R
 import com.application.coronalive.databinding.ActivityMainBinding
 import com.application.coronalive.fragments.DomesticFragment
+import com.application.coronalive.fragments.SetFavorites
 import com.application.coronalive.fragments.WorldFragment
 import com.application.coronalive.fragments.adapters.Data
 import com.application.coronalive.fragments.adapters.FavoritesAdapter
@@ -44,6 +46,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menu.setOnClickListener { layout_drawer.openDrawer(GravityCompat.START) }
         navigationView.setNavigationItemSelectedListener(this)
         subscribeUI(binding)
+
+        favorites.setOnClickListener {
+            val intent = Intent(this, SetFavorites::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
 
