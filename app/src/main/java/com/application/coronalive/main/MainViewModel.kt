@@ -19,8 +19,8 @@ import com.application.coronalive.pref.Preferences
 import com.application.coronalive.webview.WebViewActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.NumberFormat
 
 /**TODO 기능에 따른 ViewModel 작성
  * 1. 총확진자 수, 실시간 확진자 수, 증감 여부 표시 (O)
@@ -37,9 +37,7 @@ class MainViewModel : ViewModel() {
     private val _showUpdatedToast = MutableLiveData<Event<Boolean>>()
     val showUpdatedToast: LiveData<Event<Boolean>> = _showUpdatedToast
 
-    val fCityName = MutableLiveData("-")
-    val fTotalInfected = MutableLiveData("")
-    val fTotalInfIncreased = MutableLiveData(0)
+    var dataArray = MutableLiveData<ArrayList<CityInformationResponse>>()
 
     fun updateCityList(context: Context) {
         /** 로직 순서
@@ -61,6 +59,7 @@ class MainViewModel : ViewModel() {
                     dataMethod(request)
                 }
             }
+
         } ?: run {
             Log.d("STATUS", "No City Saved in Pref")
         }
@@ -86,7 +85,9 @@ class MainViewModel : ViewModel() {
                     while (dList.hasNext()) {
                         val cityInfo = dList.next()
                         cityArray?.add(cityInfo)
+                        dataArray.postValue(cityArray)
                     }
+                    delay(500)
                 }
             } else {
                 Log.d("ERROR", "알 수 없는 오류 발생")
@@ -104,23 +105,6 @@ class MainViewModel : ViewModel() {
             smallCityName
         )
 
-    fun updateData(response: CityInformationResponse): CityInformationResponse {
-        return response
-    }
-
-    private fun updateViewData(city: CityInformationResponse) {
-        val commaSeparatedNum =
-            NumberFormat.getInstance().format(city.totalInfected)
-        val cityName =
-            if (city.smallCityName != null)
-                city.bigCityName + city.smallCityName
-            else
-                city.bigCityName
-
-        fCityName.value = cityName
-        fTotalInfected.value = commaSeparatedNum
-        fTotalInfIncreased.value = city.totalInfectedInc
-    }
 
     fun addPref(context: Context) {
         val alert = AlertDialog.Builder(context)
