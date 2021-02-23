@@ -201,17 +201,11 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun onNewsButtonClicked(context: Context) {
+    fun onNewsButtonClicked(context: Context, Link : String) {
         val intent = Intent(context, WebViewActivity::class.java)
-        intent.putExtra("Clicked URL", NAVER)
+        intent.putExtra("Clicked URL", Link)
         startActivity(context, intent, null)
     }
 
-    companion object {
-        const val NAVER =
-            "https://search.naver.com/search.naver?query=%EC%BD%94%EB%A1%9C%EB%82%98&where=news&ie=utf8&sm=nws_hty"
-        const val NATE = "https://news.nate.com/search?q=%EC%BD%94%EB%A1%9C%EB%82%98"
-        const val DAUM =
-            "https://search.daum.net/search?w=news&nil_search=btn&DA=NTB&enc=utf8&cluster=y&cluster_page=1&q=%EC%BD%94%EB%A1%9C%EB%82%98"
-    }
+
 }

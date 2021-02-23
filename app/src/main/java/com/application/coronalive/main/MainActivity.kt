@@ -112,7 +112,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         viewModel.addPref(this)
-        //viewModel.onNewsButtonClicked(this)
     }
 
     fun recyclerClick(curData: Data) {
