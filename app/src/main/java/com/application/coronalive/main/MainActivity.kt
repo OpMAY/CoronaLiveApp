@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private var pressedTime : Long = 2000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main) -> Binding 작업으로 필요없는 구문
@@ -93,7 +94,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onBackPressed() {
         if (layout_drawer.isDrawerOpen(GravityCompat.START)) layout_drawer.closeDrawers()
-        else super.onBackPressed()
+        else {
+            if (System.currentTimeMillis() - pressedTime <= 2000)
+                finish()
+            else {
+                pressedTime = System.currentTimeMillis()
+                Toast.makeText(this, "이전 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setUpTabs() {

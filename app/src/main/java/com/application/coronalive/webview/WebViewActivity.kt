@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.application.coronalive.R
 import kotlinx.android.synthetic.main.activity_web_view.*
 
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_web_view.*
 class WebViewActivity : AppCompatActivity() {
 
     lateinit var mProgressBar : ProgressBar
+    private var pressedTime : Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +101,19 @@ class WebViewActivity : AppCompatActivity() {
             fitsSystemWindows = true
         }
         webView.loadUrl(url)
+    }
+
+    override fun onBackPressed() {
+        if(webView.canGoBack())
+            webView.goBack()
+        else {
+            if (System.currentTimeMillis() - pressedTime <= 2000)
+                finish()
+            else {
+                pressedTime = System.currentTimeMillis()
+                Toast.makeText(this, "이전 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     inner class WebViewClientClass : WebViewClient(){

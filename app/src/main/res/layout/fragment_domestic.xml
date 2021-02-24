@@ -172,7 +172,7 @@
                     android:layout_toRightOf="@+id/totalImg"
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/notosans_semicondensed"
-                    android:text="83,869"
+                    android:text="-"
                     android:textColor="@color/black"
                     android:textSize="23sp"
                     android:textStyle="bold" />

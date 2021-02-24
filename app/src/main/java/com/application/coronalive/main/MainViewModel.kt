@@ -38,6 +38,8 @@ class MainViewModel : ViewModel() {
     val showUpdatedToast: LiveData<Event<Boolean>> = _showUpdatedToast
 
     var dataArray = MutableLiveData<ArrayList<CityInformationResponse>>()
+    var kUpdatedTotalInfected = MutableLiveData<Int>()
+    var kUpdatedTotalIncreased = MutableLiveData<Int>()
 
     fun updateCityList(context: Context) {
         /** 로직 순서
@@ -63,6 +65,9 @@ class MainViewModel : ViewModel() {
         } ?: run {
             Log.d("STATUS", "No City Saved in Pref")
         }
+        GlobalScope.launch(Dispatchers.IO) {
+            getTotal()
+        }
         _showUpdatedToast.value = Event(true)
     }
 
@@ -73,6 +78,20 @@ class MainViewModel : ViewModel() {
             e.message ?: "도시 정보를 가져오는 중 오류가 발생했습니다."
         )
     }// 2
+
+    private suspend fun getTotal(){
+        val response = getInformation(makeRequest("전체", null))
+        if(response.success){
+            response.data?.let {
+                val dList = it.iterator()
+                while(dList.hasNext()){
+                    val totalInfo = dList.next()
+                    kUpdatedTotalInfected.postValue(totalInfo.totalInfected)
+                    kUpdatedTotalIncreased.postValue(totalInfo.totalInfectedInc)
+                }
+            }
+        }
+    }
 
     private suspend fun dataMethod(request: CityInformationRequest) {
         try {
@@ -87,7 +106,6 @@ class MainViewModel : ViewModel() {
                         cityArray?.add(cityInfo)
                         dataArray.postValue(cityArray)
                     }
-                    delay(500)
                 }
             } else {
                 Log.d("ERROR", "알 수 없는 오류 발생")
@@ -203,7 +221,7 @@ class MainViewModel : ViewModel() {
 
     fun onNewsButtonClicked(context: Context, Link : String) {
         val intent = Intent(context, WebViewActivity::class.java)
-        intent.putExtra("Clicked URL", Link)
+        intent.putExtra("CLICKED URL", Link)
         startActivity(context, intent, null)
     }
 

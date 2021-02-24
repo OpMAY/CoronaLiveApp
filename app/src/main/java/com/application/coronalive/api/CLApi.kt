@@ -21,5 +21,5 @@ interface CLApi {
     suspend fun showList() : ApiResponse<CityInformationResponse>
 
     @GET("/api/v1/big_cities")
-    suspend fun showBigCityList() : ApiResponse<CityInformationResponse>
+    suspend fun showBigCityList() : ApiResponse<List<CityInformationResponse>>
 }
