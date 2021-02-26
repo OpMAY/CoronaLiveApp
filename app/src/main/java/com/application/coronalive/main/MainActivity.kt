@@ -30,6 +30,8 @@ import kotlinx.android.synthetic.main.fragment_domestic.*
 import kotlinx.android.synthetic.main.home.*
 import kotlinx.android.synthetic.main.navigationdrawer.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar.menu
+import kotlinx.android.synthetic.main.toolbar_favorites.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
             finish()
         }
+
     }
 
 

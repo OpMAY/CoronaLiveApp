@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.application.coronalive.fragments.adapters.Data
 import com.application.coronalive.fragments.adapters.FavoritesAdapter
 import com.application.coronalive.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_domestic.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class DomesticFragment : Fragment() {
 
@@ -42,6 +44,8 @@ class DomesticFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 
     override fun onCreateView(
@@ -69,6 +73,5 @@ class DomesticFragment : Fragment() {
 //      val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         Log.d("size", dataList?.size.toString())
-
     }
 }
