@@ -37,7 +37,7 @@ class SetFavorites : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_favorites)
 
-        previous.setOnClickListener {
+        previous_favorites.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

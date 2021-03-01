@@ -13,7 +13,16 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".fragments.SetFavorites"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".main.MainActivity" />
+        </activity>
+
+        <activity android:name=".fragments.Settings"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".main.MainActivity" />
+        </activity>
 
         <activity android:name=".webview.WebViewActivity">
 

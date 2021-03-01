@@ -19,6 +19,7 @@ import com.application.coronalive.R
 import com.application.coronalive.databinding.ActivityMainBinding
 import com.application.coronalive.fragments.DomesticFragment
 import com.application.coronalive.fragments.SetFavorites
+import com.application.coronalive.fragments.Settings
 import com.application.coronalive.fragments.WorldFragment
 import com.application.coronalive.fragments.adapters.Data
 import com.application.coronalive.fragments.adapters.FavoritesAdapter
@@ -90,7 +91,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.settings -> Toast.makeText(this, "설정", Toast.LENGTH_SHORT).show()
+            R.id.settings -> {
+                val intent = Intent(this, Settings::class.java)
+                startActivity(intent)
+                finish()
+            }
+
             R.id.region -> Toast.makeText(this, "전체 지역별", Toast.LENGTH_SHORT).show()
             R.id.faq -> Toast.makeText(this, "FAQ 및 제보하기", Toast.LENGTH_SHORT).show()
             R.id.share -> Toast.makeText(this, "SNS 공유", Toast.LENGTH_SHORT).show()
