@@ -17,5 +17,11 @@
         <item name="android:textSize"> 18sp </item>
         <item name="android:fontFamily"> @font/notosans_semicondensed </item>
     </style>
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle"> @style/AppModalStyle </item>
+    </style>
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background"> @drawable/bg_white_radius_16dp </item>
+    </style>
 
 </resources>

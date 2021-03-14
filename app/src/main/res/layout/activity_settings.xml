@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:toggle="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_settings" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="알림"
+            android:textColor="@color/red"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/alert_check_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_semicondensed"
+            android:text="상단바 알림"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.132"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notification" />
+
+        <com.zcw.togglebutton.ToggleButton
+            android:id="@+id/tgb_alert_check_top"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.863"
+            app:layout_constraintStart_toEndOf="@+id/alert_check_top"
+            app:layout_constraintTop_toBottomOf="@+id/notification"
+            app:tbBorderWidth="1dp"
+            app:tbOffBorderColor="@color/lightgray"
+            app:tbOffColor="@color/lightgray"
+            app:tbOnColor="@color/lightred"
+            app:tbSpotColor="@color/white" />
+
+        <TextView
+            android:id="@+id/alert_new_coronic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/notosans_semicondensed"
+            android:text="신규 확진자 경고창 알림"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.178"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alert_check_top" />
+
+        <com.zcw.togglebutton.ToggleButton
+            android:id="@+id/tgb_alert_new_coronic"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.758"
+            app:layout_constraintStart_toEndOf="@+id/alert_new_coronic"
+            app:layout_constraintTop_toBottomOf="@+id/tgb_alert_check_top"
+            app:tbBorderWidth="1dp"
+            app:tbOffBorderColor="@color/lightgray"
+            app:tbOffColor="@color/lightgray"
+            app:tbOnColor="@color/lightred"
+            app:tbSpotColor="@color/white" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="450dp"
+            android:layout_height="0.05dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alert_new_coronic"
+            android:background="@color/lightgray"/>
+
+        <TextView
+            android:id="@+id/display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="디스플레이"
+            android:textColor="@color/red"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.092"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <TextView
+            android:id="@+id/darkmode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_semicondensed"
+            android:text="다크모드"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.132"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/display" />
+
+        <com.zcw.togglebutton.ToggleButton
+            android:id="@+id/tgb_check_darkmode"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.873"
+            app:layout_constraintStart_toEndOf="@+id/darkmode"
+            app:layout_constraintTop_toBottomOf="@+id/display"
+            app:tbBorderWidth="1dp"
+            app:tbOffBorderColor="@color/lightgray"
+            app:tbOffColor="@color/lightgray"
+            app:tbOnColor="@color/lightred"
+            app:tbSpotColor="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

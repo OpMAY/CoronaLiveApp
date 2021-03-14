@@ -1,6 +1,7 @@
 package com.application.coronalive.main
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -16,18 +17,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.coronalive.R
 import com.application.coronalive.databinding.ActivityMainBinding
-import com.application.coronalive.fragments.DomesticFragment
-import com.application.coronalive.fragments.WorldFragment
+import com.application.coronalive.fragments.*
 import com.application.coronalive.fragments.adapters.Data
 import com.application.coronalive.fragments.adapters.FavoritesAdapter
 import com.application.coronalive.fragments.adapters.ViewPagerAdapter
 import com.application.coronalive.pref.CityRelationship
 import com.application.coronalive.pref.Preferences
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_domestic.*
 import kotlinx.android.synthetic.main.home.*
 import kotlinx.android.synthetic.main.navigationdrawer.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar.menu
+import kotlinx.android.synthetic.main.toolbar_favorites.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,6 +48,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menu.setOnClickListener { layout_drawer.openDrawer(GravityCompat.START) }
         navigationView.setNavigationItemSelectedListener(this)
         subscribeUI(binding)
+
+        favorites.setOnClickListener {
+            val intent = Intent(this, SetFavorites::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
 
@@ -80,10 +89,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.settings -> Toast.makeText(this, "설정", Toast.LENGTH_SHORT).show()
+            R.id.settings -> {
+                val intent = Intent(this, Settings::class.java)
+                startActivity(intent)
+                finish()
+            }
             R.id.region -> Toast.makeText(this, "전체 지역별", Toast.LENGTH_SHORT).show()
             R.id.faq -> Toast.makeText(this, "FAQ 및 제보하기", Toast.LENGTH_SHORT).show()
-            R.id.share -> Toast.makeText(this, "SNS 공유", Toast.LENGTH_SHORT).show()
+            R.id.share -> {
+                val bottomSheet = BottomSheet()
+                bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+
+            }
             R.id.message -> Toast.makeText(this, "재난문자", Toast.LENGTH_SHORT).show()
             R.id.guidelines -> Toast.makeText(this, "거리두기 지침", Toast.LENGTH_SHORT).show()
             R.id.add_favorite -> addPref() //-> 즐겨찾기 등록화면에서 처리
